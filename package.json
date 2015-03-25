@@ -22,7 +22,7 @@
     "language",
     "vector"
   ],
-  "main": "./index.js",
+  "main": "lib/term-vector.js",
   "maintainers": [
     {
       "name": "Fergus McDowall",
