@@ -2,7 +2,7 @@ var should = require('should');
 var tv = require('../lib/term-vector.js');
 
 describe('Does term-vector play nice?', function(){
-  describe('#indexOf()', function(){
+  describe('general term-vectoriness:', function(){
     it('should return throw an error if input is not a string', function(){
       (function(){ tv.getVector(12213412) }).should.throw();
     }),
