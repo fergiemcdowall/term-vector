@@ -69,7 +69,7 @@ Returns an Array of the default stopwords.
 
 ### getVector(text [, options])
 
-Returns a ducument vector for the given `text`. `options` is an object that can contain `stopwords` (Array) and/or `separator` (RegExp)
+Returns a document vector for the given `text`. `options` is an object that can contain `stopwords` (Array) and/or `separator` (RegExp)
 
 
 [license-image]: http://img.shields.io/badge/license-MIT-blue.svg?style=flat
