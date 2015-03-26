@@ -1,3 +1,5 @@
+[![NPM version][npm-version-image]][npm-url] [![NPM downloads][npm-downloads-image]][npm-url] [![MIT License][license-image]][license-url] [![Build Status][travis-image]][travis-url]
+
 # term-vector
 A node.js module that turns that creates a term vector from a mixed text input. Supports stopword removal and customisable separators. Use `term-vector` when implementing a [vector space model](http://en.wikipedia.org/wiki/Vector_space_model)
 
@@ -37,3 +39,13 @@ var vec = tv.getVector(text, {separator:/[\| ]+/});
 ```
 
 See tests for more examples...
+
+[license-image]: http://img.shields.io/badge/license-MIT-blue.svg?style=flat
+[license-url]: LICENSE
+
+[npm-url]: https://npmjs.org/package/term-vector
+[npm-version-image]: http://img.shields.io/npm/v/term-vector.svg?style=flat
+[npm-downloads-image]: http://img.shields.io/npm/dm/term-vector.svg?style=flat
+
+[travis-url]: http://travis-ci.org/fergiemcdowall/term-vector
+[travis-image]: http://img.shields.io/travis/fergiemcdowall/term-vector.svg?style=flat
