@@ -6,7 +6,7 @@ A node.js module that turns that creates a term vector from a mixed text input. 
 **Specify your own separator!**
 
 
-##Usage
+## Usage
 
 ```javascript
 var vec = tv.getVector('This is a really, really cool vector. I like this VeCTor');
