@@ -56,6 +56,10 @@ var vec = tv.getVector(text, {separator:/[\|'\.,\-|(\n)]+/, stopwords: stp});
   [ 'synnøve', 1 ],
   [ 'words', 1 ] ]
 ```
+
+See [tests](https://github.com/fergiemcdowall/term-vector/blob/master/test/test.js) for more examples...
+
+
 ## API
 
 ### getStopwords()
@@ -67,7 +71,6 @@ Returns an Array of the default stopwords.
 
 Returns a ducument vector for the given `text`. `options` is an object that can contain `stopwords` (Array) and/or `separator` (RegExp)
 
-See tests for more examples...
 
 [license-image]: http://img.shields.io/badge/license-MIT-blue.svg?style=flat
 [license-url]: LICENSE
