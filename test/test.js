@@ -66,5 +66,15 @@ describe('Does term-vector play nice?', function(){
       vec[4][0].should.be.exactly('synnøve');
       vec[5][0].should.be.exactly('words');
     })
+    it('should be possible to manipulate stopwords', function() {
+      var stp = tv.getStopwords();
+      stp.push('ståle');
+      var vec = tv.getVector("some.,|words|like\nståle-synnøve's Kjærsti,|.Gerät Kjærsti Grünnerløkka Kjærsti", {separator:/[\|' \.,\-|(\n)]+/, stopwords: stp});
+      vec[0][0].should.be.exactly('gerät');
+      vec[1][0].should.be.exactly('grünnerløkka');
+      vec[2][0].should.be.exactly('kjærsti');
+      vec[3][0].should.be.exactly('synnøve');
+      vec[4][0].should.be.exactly('words');
+    })
   })
 })
