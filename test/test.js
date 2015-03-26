@@ -1,3 +1,5 @@
+//force travis build
+
 var should = require('should');
 var tv = require('../lib/term-vector.js');
 
