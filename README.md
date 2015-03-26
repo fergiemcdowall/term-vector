@@ -25,7 +25,7 @@ var text = 'some|words|like ståle synnøve Kjærsti|Gerät Kjærsti Grünnerlø
 var vec = tv.getVector(text, {separator:/[\| ]+/});
 ```
 
-gives
+...which gives:
 
 ```javascript
 [ [ 'gerät', 1 ],
