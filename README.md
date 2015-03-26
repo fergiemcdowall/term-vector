@@ -1,7 +1,7 @@
 [![NPM version][npm-version-image]][npm-url] [![NPM downloads][npm-downloads-image]][npm-url] [![MIT License][license-image]][license-url] [![Build Status][travis-image]][travis-url]
 
 # term-vector
-A node.js module that creates a term vector from a mixed text input. Supports stopword removal and customisable separators. Use `term-vector` when implementing a [vector space model](http://en.wikipedia.org/wiki/Vector_space_model)
+A node.js module that creates a term vector from a mixed text input. Supports customisable stopwords and separators. Use `term-vector` when implementing a [vector space model](http://en.wikipedia.org/wiki/Vector_space_model)
 
 **Works with non-ascii (European) chars!**
 
@@ -37,6 +37,35 @@ var vec = tv.getVector(text, {separator:/[\| ]+/});
   [ 'synnøve', 1 ],
   [ 'words', 1 ] ]
 ```
+
+You can also customise the stopword list:
+
+```javascript
+var stp = tv.getStopwords();
+stp.push('ståle');
+var text = 'some|words|like ståle synnøve Kjærsti|Gerät Kjærsti Grünnerløkka Kjærsti';
+var vec = tv.getVector(text, {separator:/[\|'\.,\-|(\n)]+/, stopwords: stp});
+```
+
+...which in this case removes 'ståle' to give:
+
+```javascript
+[ [ 'gerät', 1 ],
+  [ 'grünnerløkka', 1 ],
+  [ 'kjærsti', 3 ],
+  [ 'synnøve', 1 ],
+  [ 'words', 1 ] ]
+```
+## API
+
+### getStopwords()
+
+Returns an Array of the default stopwords.
+
+
+### getVector(text [, options])
+
+Returns a ducument vector for the given `text`. `options` is an object that can contain `stopwords` (Array) and/or `separator` (RegExp)
 
 See tests for more examples...
 
