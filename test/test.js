@@ -40,7 +40,10 @@ describe('Does term-vector play nice?', function(){
       vec[5][0].should.be.exactly('words');
     }),
     it('should be possible to customise seperators', function(){
-      var vec = tv.getVector('some|words|like ståle synnøve Kjærsti|Gerät Kjærsti Grünnerløkka Kjærsti', {separator:/[\| ]+/});
+      var text = 'some|words|like ståle synnøve Kjærsti|Gerät Kjærsti Grünnerløkka Kjærsti';
+      var options = {}
+      options.separator = /[\| ]+/;
+      var vec = tv.getVector(text, options);
       vec[0][0].should.be.exactly('gerät');
       vec[1][0].should.be.exactly('grünnerløkka');
       vec[2][0].should.be.exactly('kjærsti');
@@ -49,7 +52,10 @@ describe('Does term-vector play nice?', function(){
       vec[5][0].should.be.exactly('words');
     }),
     it('should be possible to customise seperators including newline', function(){
-      var vec = tv.getVector("some|words|like\nståle-synnøve's Kjærsti|Gerät Kjærsti Grünnerløkka Kjærsti", {separator:/[\|' \-|(\n)]+/});
+      var text = "some|words|like\nståle-synnøve's Kjærsti|Gerät Kjærsti Grünnerløkka Kjærsti";
+      var options = {}
+      options.separator = /[\|' \.,\-|(\n)]+/;
+      var vec = tv.getVector(text, options);
       vec[0][0].should.be.exactly('gerät');
       vec[1][0].should.be.exactly('grünnerløkka');
       vec[2][0].should.be.exactly('kjærsti');
@@ -58,7 +64,10 @@ describe('Does term-vector play nice?', function(){
       vec[5][0].should.be.exactly('words');
     })
     it('should be possible to customise seperators using more than one separator contiguaously', function(){
-      var vec = tv.getVector("some.,|words|like\nståle-synnøve's Kjærsti,|.Gerät Kjærsti Grünnerløkka Kjærsti", {separator:/[\|' \.,\-|(\n)]+/});
+      var text = "some.,|words|like\nståle-synnøve's Kjærsti,|.Gerät Kjærsti Grünnerløkka Kjærsti";
+      var options = {}
+      options.separator = /[\|' \.,\-|(\n)]+/;
+      var vec = tv.getVector(text, options);
       vec[0][0].should.be.exactly('gerät');
       vec[1][0].should.be.exactly('grünnerløkka');
       vec[2][0].should.be.exactly('kjærsti');
@@ -67,9 +76,12 @@ describe('Does term-vector play nice?', function(){
       vec[5][0].should.be.exactly('words');
     })
     it('should be possible to manipulate stopwords', function() {
-      var stp = tv.getStopwords();
-      stp.push('ståle');
-      var vec = tv.getVector("some.,|words|like\nståle-synnøve's Kjærsti,|.Gerät Kjærsti Grünnerløkka Kjærsti", {separator:/[\|' \.,\-|(\n)]+/, stopwords: stp});
+      var text = "some.,|words|like\nståle-synnøve's Kjærsti,|.Gerät Kjærsti Grünnerløkka Kjærsti";
+      var options = {}
+      options.stp = tv.getStopwords();
+      options.stp.push('ståle');
+      options.separator = /[\|' \.,\-|(\n)]+/;
+      var vec = tv.getVector(text, options);
       vec[0][0].should.be.exactly('gerät');
       vec[1][0].should.be.exactly('grünnerløkka');
       vec[2][0].should.be.exactly('kjærsti');

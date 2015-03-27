@@ -41,10 +41,12 @@ var vec = tv.getVector(text, {separator:/[\| ]+/});
 You can also customise the stopword list:
 
 ```javascript
-var stp = tv.getStopwords();
-stp.push('ståle');
-var text = 'some|words|like ståle synnøve Kjærsti|Gerät Kjærsti Grünnerløkka Kjærsti';
-var vec = tv.getVector(text, {separator:/[\|'\.,\-|(\n)]+/, stopwords: stp});
+var text = "some.,|words|like\nståle-synnøve's Kjærsti,|.Gerät Kjærsti Grünnerløkka Kjærsti";
+var options = {}
+options.stp = tv.getStopwords();
+options.stp.push('ståle');
+options.separator = /[\|' \.,\-|(\n)]+/;
+var vec = tv.getVector(text, options);
 ```
 
 ...which in this case removes 'ståle' to give:
