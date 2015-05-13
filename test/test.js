@@ -88,5 +88,15 @@ describe('Does term-vector play nice?', function(){
       vec[3][0].should.be.exactly('synnøve');
       vec[4][0].should.be.exactly('words');
     })
+    it('should be possible to get a vector from a string of only one token', function() {
+      var text = "1999";
+      var options = {}
+      options.stp = tv.getStopwords();
+      options.stp.push('ståle');
+      options.separator = /[\|' \.,\-|(\n)]+/;
+      var vec = tv.getVector(text, options);
+      vec[0][0].should.be.exactly('1999');
+      vec[0][1].should.be.exactly(1);
+    })
   })
 })
