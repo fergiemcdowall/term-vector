@@ -98,5 +98,66 @@ describe('Does term-vector play nice?', function(){
       vec[0][0].should.be.exactly('1999');
       vec[0][1].should.be.exactly(1);
     })
+    it('should be possible to do ngrams of length 2', function() {
+      var text = "one two one two three two one three one two three four one two three four";
+      var options = {}
+      options.stopwords = "";
+      options.nGramLength = 2;
+      var vec = tv.getVector(text, options);
+      vec[0][0].should.be.exactly('four one');
+      vec[1][0].should.be.exactly('one three');
+      vec[2][0].should.be.exactly('one two');
+      vec[3][0].should.be.exactly('three four');
+      vec[4][0].should.be.exactly('three one');
+      vec[5][0].should.be.exactly('three two');
+      vec[6][0].should.be.exactly('two one');
+      vec[7][0].should.be.exactly('two three');
+      vec[0][1].should.be.exactly(1);
+      vec[1][1].should.be.exactly(1);
+      vec[2][1].should.be.exactly(4);
+      vec[3][1].should.be.exactly(2);
+      vec[4][1].should.be.exactly(1);
+      vec[5][1].should.be.exactly(1);
+      vec[6][1].should.be.exactly(2);
+      vec[7][1].should.be.exactly(3);
+    })
+    it('should be possible to do ngrams of length 5', function() {
+      var text = "one two one two three two one three one two three four one two three four";
+      var options = {}
+      options.stopwords = "";
+      options.nGramLength = 3;
+      var vec = tv.getVector(text, options);
+      vec[0][0].should.be.exactly('four one two');
+      vec[1][0].should.be.exactly('one three one');
+      vec[2][0].should.be.exactly('one two one');
+      vec[3][0].should.be.exactly('one two three');
+      vec[4][0].should.be.exactly('three four one');
+      vec[5][0].should.be.exactly('three one two');
+      vec[6][0].should.be.exactly('three two one');
+      vec[7][0].should.be.exactly('two one three');
+      vec[8][0].should.be.exactly('two one two');
+      vec[9][0].should.be.exactly('two three four');
+      vec[10][0].should.be.exactly('two three two');
+      vec[0][1].should.be.exactly(1);
+      vec[1][1].should.be.exactly(1);
+      vec[2][1].should.be.exactly(1);
+      vec[3][1].should.be.exactly(3);
+      vec[4][1].should.be.exactly(1);
+      vec[5][1].should.be.exactly(1);
+      vec[6][1].should.be.exactly(1);
+      vec[7][1].should.be.exactly(1);
+      vec[8][1].should.be.exactly(1);
+      vec[9][1].should.be.exactly(2);
+      vec[10][1].should.be.exactly(1);
+    }),
+    it('should return throw an error if nGramLength is 0', function(){
+      (function(){
+        var text = "one two one two three two one three one two three four one two three four";
+        var options = {}
+        options.stopwords = "";
+        options.nGramLength = 0;
+        var vec = tv.getVector(text, options);
+      }).should.throw();
+    })
   })
 })
