@@ -7,6 +7,8 @@ A node.js module that creates a term vector from a mixed text input. Supports cu
 
 **Specify your own separator!**
 
+**Does ngrams!**
+
 
 ## Usage
 
@@ -59,6 +61,32 @@ var vec = tv.getVector(text, options);
   [ 'words', 1 ] ]
 ```
 
+Use `nGramLength` to specify an ngram length to do ngrams:
+
+```javascript
+var text = "one two one two three two one three one two three four one two three four";
+var options = {}
+options.stopwords = "";
+options.nGramLength = 3;
+var vec = tv.getVector(text, options);
+```
+
+to generate ngrams of length 3:
+
+```javascript
+[ [ 'four one two', 1 ],
+  [ 'one three one', 1 ],
+  [ 'one two one', 1 ],
+  [ 'one two three', 3 ],
+  [ 'three four one', 1 ],
+  [ 'three one two', 1 ],
+  [ 'three two one', 1 ],
+  [ 'two one three', 1 ],
+  [ 'two one two', 1 ],
+  [ 'two three four', 2 ],
+  [ 'two three two', 1 ] ]
+```
+
 See [tests](https://github.com/fergiemcdowall/term-vector/blob/master/test/test.js) for more examples...
 
 
@@ -71,8 +99,11 @@ Returns an Array of the default stopwords.
 
 ### getVector(text [, options])
 
-Returns a document vector for the given `text`. `options` is an object that can contain `stopwords` (Array) and/or `separator` (RegExp)
+Returns a document vector for the given `text`. `options` is an object that can contain:
 
+* `stopwords` (Array) An array of tokens that are ignored
+* `separator` (RegExp) An expression for how tokens are separated in source files
+* `nGramLength` (number) The length of the ngrams that should be generated
 
 [license-image]: http://img.shields.io/badge/license-MIT-blue.svg?style=flat
 [license-url]: LICENSE
