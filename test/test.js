@@ -29,6 +29,14 @@ describe('Does term-vector play nice?', function(){
       vec[2][0].should.be.exactly('one');
       vec[3][0].should.be.exactly('vectors');
     }),
+    it('should return norwegian stopwords', function(){
+      var vec = tv.getStopwords('no');
+      vec.should.be.instanceof(Array).and.have.lengthOf(129);
+      vec[0].should.be.exactly('og');
+      vec[1].should.be.exactly('i');
+      vec[2].should.be.exactly('jeg');
+      vec[3].should.be.exactly('det');
+    }),
     it('should handle words containing non-ascii chars used in european languages', function(){
       var vec = tv.getVector('some words like ståle synnøve Kjærsti Gerät Kjærsti Grünnerløkka Kjærsti');
       vec.should.be.instanceof(Array).and.have.lengthOf(6);
@@ -149,7 +157,9 @@ describe('Does term-vector play nice?', function(){
       vec[8][1].should.be.exactly(1);
       vec[9][1].should.be.exactly(2);
       vec[10][1].should.be.exactly(1);
-    }),
+    })
+  })
+  describe('error handling', function(){
     it('should return throw an error if nGramLength is 0', function(){
       (function(){
         var text = "one two one two three two one three one two three four one two three four";
@@ -157,6 +167,11 @@ describe('Does term-vector play nice?', function(){
         options.stopwords = "";
         options.nGramLength = 0;
         var vec = tv.getVector(text, options);
+      }).should.throw();
+    }),
+    it('should return throw an error if specified language is not supported', function(){
+      (function(){
+        tv.getStopwords('xx')
       }).should.throw();
     })
   })
