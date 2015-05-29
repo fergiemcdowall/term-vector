@@ -94,7 +94,14 @@ See [tests](https://github.com/fergiemcdowall/term-vector/blob/master/test/test.
 
 ### getStopwords()
 
-Returns an Array of the default stopwords.
+Usage
+```javascript
+getStopwords([language code])
+```
+
+returns an array of stopwords for the given language.
+
+Supported languages (and potential values for `language code`): `en`, `es`, `fa`, `fr`, `it`, `ja`, `nl`, `no`, `pl`, `pt`, `ru`, `zh` (defaults to `en`)
 
 
 ### getVector(text [, options])
