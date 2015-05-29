@@ -121,7 +121,7 @@ describe('Does term-vector play nice?', function(){
       vec[6][1].should.be.exactly(2);
       vec[7][1].should.be.exactly(3);
     })
-    it('should be possible to do ngrams of length 5', function() {
+    it('should be possible to do ngrams of length 3', function() {
       var text = "one two one two three two one three one two three four one two three four";
       var options = {}
       options.stopwords = "";
