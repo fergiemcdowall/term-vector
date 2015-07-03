@@ -4,7 +4,7 @@
   "version": "0.0.10",
   "homepage": "https://github.com/fergiemcdowall/term-vector",
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=0.11.0"
   },
   "dependencies": {
     "lodash": "3.5.0",
