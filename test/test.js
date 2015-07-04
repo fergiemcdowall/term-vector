@@ -175,4 +175,65 @@ describe('Does term-vector play nice?', function(){
       }).should.throw();
     })
   })
+  describe('non-english languages', function(){
+    it('should be able to define stopwords in norwegian', function(){
+      var text = "Ifølge den franske avisen får Astana heller ikke erstatte Boom med en annen sykkelrytter. Det irriterer Alexandre Vinokourov. – Enten aksepterer UCI (det internasjonale sykkelforbundet) at vi får med en annen rytter, eller så kjører Boom med oss, sier han.";
+      var options = {}
+      options.stopwords = tv.getStopwords('no');
+      options.separator = /[\|– .,()]+/;
+      options.nGramLength = 1;
+      var vec = tv.getVector(text, options);
+      vec.should.eql([ [ 'aksepterer', 1 ],
+                       [ 'alexandre', 1 ],
+                       [ 'annen', 2 ],
+                       [ 'astana', 1 ],
+                       [ 'avisen', 1 ],
+                       [ 'boom', 2 ],
+                       [ 'enten', 1 ],
+                       [ 'erstatte', 1 ],
+                       [ 'franske', 1 ],
+                       [ 'får', 2 ],
+                       [ 'heller', 1 ],
+                       [ 'ifølge', 1 ],
+                       [ 'internasjonale', 1 ],
+                       [ 'irriterer', 1 ],
+                       [ 'kjører', 1 ],
+                       [ 'rytter', 1 ],
+                       [ 'sier', 1 ],
+                       [ 'sykkelforbundet', 1 ],
+                       [ 'sykkelrytter', 1 ],
+                       [ 'uci', 1 ],
+                       [ 'vinokourov', 1 ] ]);
+    }),
+    it('should be able to define stopwords in norwegian and do ngrams', function(){
+      var text = "Ifølge den franske avisen får Astana heller ikke erstatte Boom med en annen sykkelrytter. Det irriterer Alexandre Vinokourov. – Enten aksepterer UCI (det internasjonale sykkelforbundet) at vi får med en annen rytter, eller så kjører Boom med oss, sier han.";
+      var options = {}
+      options.stopwords = tv.getStopwords('no');
+      options.separator = /[\|– .,()]+/;
+      options.nGramLength = 3;
+      var vec = tv.getVector(text, options);
+      vec.should.eql([ [ 'aksepterer uci internasjonale', 1 ],
+                       [ 'alexandre vinokourov enten', 1 ],
+                       [ 'annen rytter kjører', 1 ],
+                       [ 'annen sykkelrytter irriterer', 1 ],
+                       [ 'astana heller erstatte', 1 ],
+                       [ 'avisen får astana', 1 ],
+                       [ 'boom annen sykkelrytter', 1 ],
+                       [ 'enten aksepterer uci', 1 ],
+                       [ 'erstatte boom annen', 1 ],
+                       [ 'franske avisen får', 1 ],
+                       [ 'får annen rytter', 1 ],
+                       [ 'får astana heller', 1 ],
+                       [ 'heller erstatte boom', 1 ],
+                       [ 'ifølge franske avisen', 1 ],
+                       [ 'internasjonale sykkelforbundet får', 1 ],
+                       [ 'irriterer alexandre vinokourov', 1 ],
+                       [ 'kjører boom sier', 1 ],
+                       [ 'rytter kjører boom', 1 ],
+                       [ 'sykkelforbundet får annen', 1 ],
+                       [ 'sykkelrytter irriterer alexandre', 1 ],
+                       [ 'uci internasjonale sykkelforbundet', 1 ],
+                       [ 'vinokourov enten aksepterer', 1 ] ]);
+    })
+  })
 })
