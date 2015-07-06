@@ -110,7 +110,10 @@ Returns a document vector for the given `text`. `options` is an object that can 
 
 * `stopwords` (Array) An array of tokens that are ignored
 * `separator` (RegExp) An expression for how tokens are separated in source files
-* `nGramLength` (number) The length of the ngrams that should be generated
+* `nGramLength` (number/Array/Object) The length of the ngrams that should be generated
+	* `Integer` (return one length of ngram): any number- returns ngrams of that length
+	* `Array` (return ngrams of different, specified lengths): an `Array` of numbers- returns ngrams for each number in the array
+	* `Object` (return ngrams within a range of ngram lengths): an object in the form of `{gte: 1, lte: 5}` where `gte` == "greater than or equal to" and `lte` == "less than or equal to". Returns ngrams of every length in the range.
 
 [license-image]: http://img.shields.io/badge/license-MIT-blue.svg?style=flat
 [license-url]: LICENSE
