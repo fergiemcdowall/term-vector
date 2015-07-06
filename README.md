@@ -19,8 +19,47 @@ var vec = tv.getVector('This is a really, really cool vector. I like this VeCTor
 ...`vec` is now:
 
 ```javascript
-[ [ 'cool', 1 ], [ 'really', 2 ], [ 'vector', 2 ] ]
+[ [ 'cool', 1 ],
+  [ 'really', 2 ],
+  [ 'vector', 2 ] ]
 ```
+
+```javascript
+var options = {nGramLength: {gte: 1, lte: 5}};
+var vec = tv.getVector('This is a really, really cool vector. I like this VeCTor', options);
+```
+
+...`vec` is now:
+```javascript
+[ [ 'cool', 1 ],
+  [ 'really', 2 ],
+  [ 'vector', 2 ],
+  [ 'cool vector', 1 ],
+  [ 'really cool', 1 ],
+  [ 'really really', 1 ],
+  [ 'vector vector', 1 ],
+  [ 'cool vector vector', 1 ],
+  [ 'really cool vector', 1 ],
+  [ 'really really cool', 1 ],
+  [ 'really cool vector vector', 1 ],
+  [ 'really really cool vector', 1 ],
+  [ 'really really cool vector vector', 1 ] ]
+```
+
+```javascript
+var options = {nGramLength: [1, 4]};
+var vec = tv.getVector('This is a really, really cool vector. I like this VeCTor', options);
+```
+
+...`vec` is now:
+```javascript
+[ [ 'cool', 1 ],
+  [ 'really', 2 ],
+  [ 'vector', 2 ],
+  [ 'really cool vector vector', 1 ],
+  [ 'really really cool vector', 1 ] ]
+```
+
 
 Alternatively you can specify a [RegExp](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp) in the standard [String.split()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split) format:
 
