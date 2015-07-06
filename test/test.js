@@ -422,7 +422,7 @@ describe('Does term-vector play nice?', function(){
       var options = {}
       options.stopwords = [];
       options.separator = /[\|– .,()]+/;
-      options.nGramLength = {lte: 1, gte: 4};
+      options.nGramLength = {gte: 1, lte: 4};
       var vec = tv.getVector(text, options);
       vec.should.eql([ [ 'aksepterer', 1 ],
                        [ 'alexandre', 1 ],
