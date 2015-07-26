@@ -112,6 +112,8 @@ See [tests](https://github.com/fergiemcdowall/term-vector/blob/master/test/test.
 
 ## API
 
+(see also [auto-generated API docs](doc/api/module-term-vector.html))
+
 ### getStopwords()
 
 Usage

@@ -33,7 +33,8 @@
     }
   ],
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "doc": "rm -rf doc/api && node_modules/.bin/jsdoc -d doc/api lib/term-vector.js"
   },
   "repository": {
     "type": "git",
