@@ -1,18 +1,19 @@
 {
   "name": "term-vector",
   "description": "A node.js module that creates a term vector from a mixed text input. Supports customisable stopwords and separators.",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "homepage": "https://github.com/fergiemcdowall/term-vector",
   "engines": {
     "node": ">=0.10.0"
   },
   "dependencies": {
     "lodash": "3.5.0",
-    "stopword": "0.0.3"
+    "stopword": "0.0.4"
   },
   "devDependencies": {
     "mocha": "2.2.1",
-    "should": "5.2.0"
+    "should": "5.2.0",
+    "standard": "^6.0.8"
   },
   "author": {
     "name": "Fergus McDowall",
@@ -24,7 +25,7 @@
     "vector",
     "vector space model"
   ],
-  "main": "lib/term-vector.js",
+  "main": "index.js",
   "maintainers": [
     {
       "name": "Fergus McDowall",
@@ -33,8 +34,7 @@
     }
   ],
   "scripts": {
-    "test": "mocha",
-    "doc": "rm -rf doc/api && node_modules/.bin/jsdoc -d doc/api lib/term-vector.js"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
