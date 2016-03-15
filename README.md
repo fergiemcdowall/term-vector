@@ -13,97 +13,99 @@ A node.js module that creates a term vector from a mixed text input. Supports cu
 ## Usage
 
 ```javascript
-var vec = tv.getVector('This is a really, really cool vector. I like this VeCTor');
+var vec = tv.getVector('This is a really, really cool vector. I like this VeCTor')
 ```
 
 ...`vec` is now:
 
 ```javascript
-[ [ 'cool', 1 ],
-  [ 'really', 2 ],
-  [ 'vector', 2 ] ]
+[ [ [ 'cool' ], 1 ],
+  [ [ 'really' ], 2 ],
+  [ [ 'vector' ], 2 ] ]
 ```
 
 
 Or you can specify a range of ngram lengths:
 
 ```javascript
-var options = {nGramLength: {gte: 1, lte: 5}};
-var vec = tv.getVector('This is a really, really cool vector. I like this VeCTor', options);
+var options = {nGramLength: {gte: 1, lte: 5}}
+var vec = tv.getVector('This is a really, really cool vector. I like this VeCTor', options)
 ```
 
 ...`vec` is now:
+
 ```javascript
-[ [ 'cool', 1 ],
-  [ 'really', 2 ],
-  [ 'vector', 2 ],
-  [ 'cool vector', 1 ],
-  [ 'really cool', 1 ],
-  [ 'really really', 1 ],
-  [ 'vector vector', 1 ],
-  [ 'cool vector vector', 1 ],
-  [ 'really cool vector', 1 ],
-  [ 'really really cool', 1 ],
-  [ 'really cool vector vector', 1 ],
-  [ 'really really cool vector', 1 ],
-  [ 'really really cool vector vector', 1 ] ]
+[ [ [ 'cool' ], 1 ],
+  [ [ 'really' ], 2 ],
+  [ [ 'vector' ], 2 ],
+  [ [ 'cool', 'vector' ], 1 ],
+  [ [ 'really', 'cool' ], 1 ],
+  [ [ 'really', 'really' ], 1 ],
+  [ [ 'vector', 'vector' ], 1 ],
+  [ [ 'cool', 'vector', 'vector' ], 1 ],
+  [ [ 'really', 'cool', 'vector' ], 1 ],
+  [ [ 'really', 'really', 'cool' ], 1 ],
+  [ [ 'really', 'cool', 'vector', 'vector' ], 1 ],
+  [ [ 'really', 'really', 'cool', 'vector' ], 1 ],
+  [ [ 'really', 'really', 'cool', 'vector', 'vector' ], 1 ] ]
 ```
 
 Or you can choose specific ngram lengths:
 
 
 ```javascript
-var options = {nGramLength: [1, 4]};
-var vec = tv.getVector('This is a really, really cool vector. I like this VeCTor', options);
+var options = {nGramLength: [1, 4]}
+var vec = tv.getVector('This is a really, really cool vector. I like this VeCTor', options)
 ```
 
 ...`vec` is now:
+
 ```javascript
-[ [ 'cool', 1 ],
-  [ 'really', 2 ],
-  [ 'vector', 2 ],
-  [ 'really cool vector vector', 1 ],
-  [ 'really really cool vector', 1 ] ]
+[ [ [ 'cool' ], 1 ],
+  [ [ 'really' ], 2 ],
+  [ [ 'vector' ], 2 ],
+  [ [ 'really', 'cool', 'vector', 'vector' ], 1 ],
+  [ [ 'really', 'really', 'cool', 'vector' ], 1 ] ]
 ```
 
 
 You can specify a custom [RegExp](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp) in the standard [String.split()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split) format for tokenising your text:
 
 ```javascript
-var text = 'some|words|like ståle synnøve Kjærsti|Gerät Kjærsti Grünnerløkka Kjærsti';
-var vec = tv.getVector(text, {separator:/[\| ]+/});
+var text = 'some|words|like ståle synnøve Kjærsti|Gerät Kjærsti Grünnerløkka Kjærsti'
+var vec = tv.getVector(text, {separator:/[\| ]+/})
 ```
 
 ...which makes `vec`:
 
 ```javascript
-[ [ 'gerät', 1 ],
-  [ 'grünnerløkka', 1 ],
-  [ 'kjærsti', 3 ],
-  [ 'ståle', 1 ],
-  [ 'synnøve', 1 ],
-  [ 'words', 1 ] ]
+[ [ [ 'gerät' ], 1 ],
+  [ [ 'grünnerløkka' ], 1 ],
+  [ [ 'kjærsti' ], 3 ],
+  [ [ 'ståle' ], 1 ],
+  [ [ 'synnøve' ], 1 ],
+  [ [ 'words' ], 1 ] ]
 ```
 
 You can also customise the stopword list:
 
 ```javascript
-var text = "some.,|words|like\nståle-synnøve's Kjærsti,|.Gerät Kjærsti Grünnerløkka Kjærsti";
+var text = 'some.,|words|like\nståle-synnøve's Kjærsti,|.Gerät Kjærsti Grünnerløkka Kjærsti'
 var options = {}
-options.stp = tv.getStopwords();
-options.stp.push('ståle');
-options.separator = /[\|' \.,\-|(\n)]+/;
-var vec = tv.getVector(text, options);
+options.stp = tv.getStopwords()
+options.stp.push('ståle')
+options.separator = /[\|' \.,\-|(\n)]+/
+var vec = tv.getVector(text, options)
 ```
 
 ...which in this case removes 'ståle' to give:
 
 ```javascript
-[ [ 'gerät', 1 ],
-  [ 'grünnerløkka', 1 ],
-  [ 'kjærsti', 3 ],
-  [ 'synnøve', 1 ],
-  [ 'words', 1 ] ]
+[ [ [ 'gerät' ], 1 ],
+  [ [ 'grünnerløkka' ], 1 ],
+  [ [ 'kjærsti' ], 3 ],
+  [ [ 'synnøve' ], 1 ],
+  [ [ 'words' ], 1 ] ]
 ```
 
 
@@ -146,3 +148,9 @@ Returns a document vector for the given `text`. `options` is an object that can 
 
 [travis-url]: http://travis-ci.org/fergiemcdowall/term-vector
 [travis-image]: http://img.shields.io/travis/fergiemcdowall/term-vector.svg?style=flat
+
+
+##Release Notes
+
+As of version 0.0.14, `term-vector` returns ngrams as Arrays instead
+of Strings to avoid separator ambiguity

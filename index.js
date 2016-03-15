@@ -51,7 +51,7 @@ var getTermVectorForNgramLength = function (tokens, nGramLength) {
   // create ngrams of desired length
   var ngrams = []
   for (var i = 0; i <= (tokens.length - nGramLength); i++) {
-    ngrams.push(tokens.slice(i, i + nGramLength).join(' '))
+    ngrams.push(tokens.slice(i, i + nGramLength))
   }
   // count ngrams
   ngrams = ngrams.sort()
@@ -61,9 +61,9 @@ var getTermVectorForNgramLength = function (tokens, nGramLength) {
   var lastToken = ngrams[0]
   var vector = []
   for (var j = 1; j < ngrams.length; j++) {
-    if (ngrams[j] === lastToken) {
+    if (_.isEqual(ngrams[j], lastToken)) {
       counter++
-    } else if (ngrams[j] !== lastToken) {
+    } else {
       vector.push([lastToken, counter])
       counter = 1
       lastToken = ngrams[j]
