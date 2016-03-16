@@ -36,7 +36,7 @@ exports.getVector = function (text, options) {
              ((parseInt(options.nGramLength.gte) <=
                parseInt(options.nGramLength.lte)))) {
     var j = parseInt(options.nGramLength.gte)
-    while (j <= options.nGramLength.lte) {
+    while (j <= options.nGramLength.lte && tokens[j - 1]) {
       vec = vec.concat(getTermVectorForNgramLength(tokens, j++))
     }
     return vec
@@ -47,8 +47,15 @@ exports.getStopwords = function (lang) {
   return sw.getStopwords(lang)
 }
 
+// create ngrams of desired length
 var getTermVectorForNgramLength = function (tokens, nGramLength) {
-  // create ngrams of desired length
+
+  // cant make ngram if specified length is longer than token array
+  debugger
+  if (nGramLength > tokens.length) {
+    return []
+  }
+
   var ngrams = []
   for (var i = 0; i <= (tokens.length - nGramLength); i++) {
     ngrams.push(tokens.slice(i, i + nGramLength))
