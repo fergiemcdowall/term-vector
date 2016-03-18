@@ -51,7 +51,6 @@ exports.getStopwords = function (lang) {
 var getTermVectorForNgramLength = function (tokens, nGramLength) {
 
   // cant make ngram if specified length is longer than token array
-  debugger
   if (nGramLength > tokens.length) {
     return []
   }
