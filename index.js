@@ -3,8 +3,9 @@
  * @module term-vector
  */
 
-var sw = require('stopword')
-var _ = require('lodash')
+const sw = require('stopword')
+const _defaults = require('lodash.defaults')
+const _isEqual = require('lodash.isequal')
 
 exports.getVector = function (text, options) {
   if (typeof text !== 'string') {
@@ -15,7 +16,7 @@ exports.getVector = function (text, options) {
     separator: /[\|' \.,\-|(\n)]+/,
     stopwords: sw.getStopwords()
   }
-  options = _.defaults(options || {}, defaults)
+  options = _defaults(options || {}, defaults)
   if (options.nGramLength === 0) {
     throw new Error('error: nGramLength must be greater than 0')
   }
@@ -67,7 +68,7 @@ var getTermVectorForNgramLength = function (tokens, nGramLength) {
   var lastToken = ngrams[0]
   var vector = []
   for (var j = 1; j < ngrams.length; j++) {
-    if (_.isEqual(ngrams[j], lastToken)) {
+    if (_isEqual(ngrams[j], lastToken)) {
       counter++
     } else {
       vector.push([lastToken, counter])
