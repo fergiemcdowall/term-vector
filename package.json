@@ -13,7 +13,8 @@
     "mocha": "2.2.1",
     "should": "5.2.0",
     "standard": "^6.0.8",
-    "standard-format": "^2.2.3"
+    "standard-format": "^2.2.3",
+    "stopword": "^0.1.0"
   },
   "author": {
     "name": "Fergus McDowall",
