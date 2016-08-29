@@ -4,40 +4,29 @@
  */
 
 const sw = require('stopword')
-const _defaults = require('lodash.defaults')
 const _isEqual = require('lodash.isequal')
 
-exports.getVector = function (text, options) {
-  if (typeof text !== 'string') {
-    throw new Error('error: input must be a string')
+exports.getVector = function (tokens, nGramLength) {
+  nGramLength = nGramLength || 1
+  if (Object.prototype.toString.call(tokens) !== '[object Array]') {
+    throw new Error('error: input must be an Array')
   }
-  var defaults = {
-    nGramLength: 1,
-    separator: /[\|' \.,\-|(\n)]+/,
-    stopwords: sw.getStopwords()
-  }
-  options = _defaults(options || {}, defaults)
-  if (options.nGramLength === 0) {
+  if (nGramLength === 0) {
     throw new Error('error: nGramLength must be greater than 0')
   }
-  // tokenise string, remove stopwords
-  var tokens = sw.removeStopwords(text, {
-    inputSeparator: options.separator,
-    stopwords: options.stopwords
-  })
   var vec = []
-  if (!isNaN(options.nGramLength)) {
-    return getTermVectorForNgramLength(tokens, options.nGramLength)
-  } else if (options.nGramLength.constructor === Array) {
-    for (var i = 0; i < options.nGramLength.length; i++) {
-      vec = vec.concat(getTermVectorForNgramLength(tokens, options.nGramLength[i]))
+  if (!isNaN(nGramLength)) {
+    return getTermVectorForNgramLength(tokens, nGramLength)
+  } else if (Object.prototype.toString.call(nGramLength) === '[object Array]') {
+    for (var i = 0; i < nGramLength.length; i++) {
+      vec = vec.concat(getTermVectorForNgramLength(tokens, nGramLength[i]))
     }
     return vec
-  } else if (typeof (options.nGramLength) &&
-             ((parseInt(options.nGramLength.gte) <=
-               parseInt(options.nGramLength.lte)))) {
-    var j = parseInt(options.nGramLength.gte)
-    while (j <= options.nGramLength.lte && tokens[j - 1]) {
+  } else if (typeof (nGramLength) &&
+    ((parseInt(nGramLength.gte) <=
+    parseInt(nGramLength.lte)))) {
+    var j = parseInt(nGramLength.gte)
+    while (j <= nGramLength.lte && tokens[j - 1]) {
       vec = vec.concat(getTermVectorForNgramLength(tokens, j++))
     }
     return vec
@@ -50,7 +39,6 @@ exports.getStopwords = function (lang) {
 
 // create ngrams of desired length
 var getTermVectorForNgramLength = function (tokens, nGramLength) {
-
   // cant make ngram if specified length is longer than token array
   if (nGramLength > tokens.length) {
     return []

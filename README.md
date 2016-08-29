@@ -13,7 +13,14 @@ A node.js module that creates a term vector from a mixed text input. Supports cu
 ## Usage
 
 ```javascript
-var vec = tv.getVector('This is a really, really cool vector. I like this VeCTor')
+var sw = require('stopword')
+var tv = require('term-vector')
+var text = sw.removeStopwords(
+  'This is a really, really cool vector. I like this VeCTor'
+    .toLowerCase()
+    .split(/[ ,\.]+/)
+)
+var vec = tv.getVector(text)
 ```
 
 ...`vec` is now:
@@ -28,8 +35,14 @@ var vec = tv.getVector('This is a really, really cool vector. I like this VeCTor
 Or you can specify a range of ngram lengths:
 
 ```javascript
-var options = {nGramLength: {gte: 1, lte: 5}}
-var vec = tv.getVector('This is a really, really cool vector. I like this VeCTor', options)
+var sw = require('stopword')
+var tv = require('term-vector')
+var text = sw.removeStopwords(
+  'This is a really, really cool vector. I like this VeCTor'
+    .toLowerCase()
+    .split(/[ ,\.]+/)
+)
+var vec = tv.getVector(text, {gte: 1, lte: 5})
 ```
 
 ...`vec` is now:
@@ -54,8 +67,14 @@ Or you can choose specific ngram lengths:
 
 
 ```javascript
-var options = {nGramLength: [1, 4]}
-var vec = tv.getVector('This is a really, really cool vector. I like this VeCTor', options)
+var sw = require('stopword')
+var tv = require('term-vector')
+var text = sw.removeStopwords(
+  'This is a really, really cool vector. I like this VeCTor'
+    .toLowerCase()
+    .split(/[ ,\.]+/)
+)
+var vec = tv.getVector(text, [1, 4])
 ```
 
 ...`vec` is now:
@@ -68,73 +87,15 @@ var vec = tv.getVector('This is a really, really cool vector. I like this VeCTor
   [ [ 'really', 'really', 'cool', 'vector' ], 1 ] ]
 ```
 
-
-You can specify a custom [RegExp](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp) in the standard [String.split()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split) format for tokenising your text:
-
-```javascript
-var text = 'some|words|like ståle synnøve Kjærsti|Gerät Kjærsti Grünnerløkka Kjærsti'
-var vec = tv.getVector(text, {separator:/[\| ]+/})
-```
-
-...which makes `vec`:
-
-```javascript
-[ [ [ 'gerät' ], 1 ],
-  [ [ 'grünnerløkka' ], 1 ],
-  [ [ 'kjærsti' ], 3 ],
-  [ [ 'ståle' ], 1 ],
-  [ [ 'synnøve' ], 1 ],
-  [ [ 'words' ], 1 ] ]
-```
-
-You can also customise the stopword list:
-
-```javascript
-var text = 'some.,|words|like\nståle-synnøve's Kjærsti,|.Gerät Kjærsti Grünnerløkka Kjærsti'
-var options = {}
-options.stp = tv.getStopwords()
-options.stp.push('ståle')
-options.separator = /[\|' \.,\-|(\n)]+/
-var vec = tv.getVector(text, options)
-```
-
-...which in this case removes 'ståle' to give:
-
-```javascript
-[ [ [ 'gerät' ], 1 ],
-  [ [ 'grünnerløkka' ], 1 ],
-  [ [ 'kjærsti' ], 3 ],
-  [ [ 'synnøve' ], 1 ],
-  [ [ 'words' ], 1 ] ]
-```
-
-
 See [tests](https://github.com/fergiemcdowall/term-vector/blob/master/test/test.js) for more examples...
 
 
 ## API
 
-(see also [auto-generated API docs](doc/api/module-term-vector.html))
+### getVector(text [, nGram])
 
-### getStopwords()
-
-Usage
-```javascript
-getStopwords([language code])
-```
-
-returns an array of stopwords for the given language.
-
-Supported languages (and potential values for `language code`): `en`, `es`, `fa`, `fr`, `it`, `ja`, `nl`, `no`, `pl`, `pt`, `ru`, `zh` (defaults to `en`)
-
-
-### getVector(text [, options])
-
-Returns a document vector for the given `text`. `options` is an object that can contain:
-
-* `stopwords` (Array) An array of tokens that are ignored
-* `separator` (RegExp) An expression for how tokens are separated in source files
-* `nGramLength` (number/Array/Object) The length of the ngrams that should be generated
+* `text` A an array of words
+* `nGram` (number/Array/Object) The length of the ngrams that should be generated
 	* `Integer` (return one length of ngram): any number- returns ngrams of that length
 	* `Array` (return ngrams of different, specified lengths): an `Array` of numbers- returns ngrams for each number in the array
 	* `Object` (return ngrams within a range of ngram lengths): an object in the form of `{gte: 1, lte: 5}` where `gte` == "greater than or equal to" and `lte` == "less than or equal to". Returns ngrams of every length in the range.
@@ -152,5 +113,7 @@ Returns a document vector for the given `text`. `options` is an object that can 
 
 ##Release Notes
 
-As of version 0.0.14, `term-vector` returns ngrams as Arrays instead
+0.0.14: `term-vector` returns ngrams as Arrays instead
 of Strings to avoid separator ambiguity
+
+0.1.1: Only accepts Arrays, tokenization and stopwording delegated to other packages
