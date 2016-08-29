@@ -1,7 +1,7 @@
 {
   "name": "term-vector",
   "description": "A node.js module that creates a term vector from tokenized text. Supports customisable stopwords and separators.",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "homepage": "https://github.com/fergiemcdowall/term-vector",
   "engines": {
     "node": ">=0.10.0"
