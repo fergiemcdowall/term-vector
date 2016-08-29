@@ -3,9 +3,7 @@
 # term-vector
 A node.js module that creates a term vector from a mixed text input. Supports customisable stopwords and separators. Use `term-vector` when implementing a [vector space model](http://en.wikipedia.org/wiki/Vector_space_model)
 
-**Works with non-ascii (European) chars!**
-
-**Specify your own separator!**
+**Works with Unicode!**
 
 **Does ngrams!**
 
