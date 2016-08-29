@@ -33,10 +33,6 @@ exports.getVector = function (tokens, nGramLength) {
   } else throw new Error('nGramLength seems to be maformed- see docs')
 }
 
-exports.getStopwords = function (lang) {
-  return sw.getStopwords(lang)
-}
-
 // create ngrams of desired length
 var getTermVectorForNgramLength = function (tokens, nGramLength) {
   // cant make ngram if specified length is longer than token array
