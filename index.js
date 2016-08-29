@@ -3,7 +3,6 @@
  * @module term-vector
  */
 
-const sw = require('stopword')
 const _isEqual = require('lodash.isequal')
 
 exports.getVector = function (tokens, nGramLength) {
