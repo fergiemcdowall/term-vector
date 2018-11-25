@@ -35,3 +35,13 @@ tv(tokens, { ngramLengths: [ 1, 2 ] })
 // ]
 
 ```
+
+[license-image]: http://img.shields.io/badge/license-MIT-blue.svg?style=flat
+[license-url]: LICENSE
+
+[npm-url]: https://npmjs.org/package/term-vector
+[npm-version-image]: http://img.shields.io/npm/v/term-vector.svg?style=flat
+[npm-downloads-image]: http://img.shields.io/npm/dm/term-vector.svg?style=flat
+
+[travis-url]: http://travis-ci.org/fergiemcdowall/term-vector
+[travis-image]: http://img.shields.io/travis/fergiemcdowall/term-vector.svg?style=flat
