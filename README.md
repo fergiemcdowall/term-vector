@@ -12,8 +12,8 @@ A node.js module that creates a term vector from tokenized text. Use `term-vecto
 
 const tokens = 'this is really really really cool'.split(' ')
 
+// just make a simple term vector
 tv(tokens)
-
 // [
 //   { term: [ 'cool' ], positions: [ 5 ] },
 //   { term: [ 'is' ], positions: [ 1 ] },
@@ -21,8 +21,8 @@ tv(tokens)
 //   { term: [ 'this' ], positions: [ 0 ] }
 // ]
 
+// make a term vector with ngrams of length 1 and 2
 tv(tokens, { ngramLengths: [ 1, 2 ] })
-
 // [
 //   { term: [ 'cool' ], positions: [ 5 ] },
 //   { term: [ 'is' ], positions: [ 1 ] },
