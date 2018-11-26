@@ -10,6 +10,7 @@ A node.js module that creates a term vector from tokenized text. Use `term-vecto
 
 ```javascript
 
+const tv = require('term-vector') 
 const tokens = 'this is really really really cool'.split(' ')
 
 // just make a simple term vector
