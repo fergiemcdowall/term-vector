@@ -3,14 +3,18 @@
  * @module term-vector
  */
 
-module.exports = function (tokens, ops) {
-  ops = Object.assign({}, {
-    ngramLengths: [ 1 ]
-  }, ops)
+module.exports = (tokens, ops) => {
+  ops = Object.assign(
+    {},
+    {
+      ngramLengths: [1]
+    },
+    ops
+  )
   const tokenMap = tokens.reduce((acc, cur, i, src) => {
     // register ngram of each given length
-    ops.ngramLengths.forEach(ngl => {
-      var ngram = src.slice(i, i + ngl)
+    ops.ngramLengths.forEach((ngl) => {
+      const ngram = src.slice(i, i + ngl)
       if (ngram.length !== ngl) return // at end of token array
       cur = JSON.stringify(ngram)
       acc[cur] = acc[cur] || []
@@ -18,11 +22,22 @@ module.exports = function (tokens, ops) {
     })
     return acc
   }, {})
+
   // turn token map into array
-  return Object.keys(tokenMap).map(t => {
-    return {
+  return Object.keys(tokenMap)
+    .map((t) => ({
       term: JSON.parse(t),
       positions: tokenMap[t]
-    }
-  }).sort((a, b) => a.term[0] > b.term[0]) // sort alphabetically
+    }))
+    .sort((a, b) => {
+      for (let i = 0; i < a.term.length && i < b.term.length; i++) {
+        if (a.term[i] === b.term[i]) {
+          // these elements are equal, move to next element
+        } else {
+          // these elements are not equal so compare them
+          return a.term[i].localeCompare(b.term[i])
+        }
+      }
+      return 0 // since nothing was returned, both arrays are deeply equal
+    }) // sort array of variable length arrays alphabetically
 }
