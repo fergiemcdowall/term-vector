@@ -1,4 +1,4 @@
-[![NPM version][npm-version-image]][npm-url] [![NPM downloads][npm-downloads-image]][npm-url] [![MIT License][license-image]][license-url] [![Build Status][travis-image]][travis-url]
+[![NPM version][npm-version-image]][npm-url] [![NPM downloads][npm-downloads-image]][npm-url] [![MIT License][license-image]][license-url]
 
 # term-vector
 A node.js module that creates a term vector from tokenized text. Use `term-vector` when implementing a [vector space model](http://en.wikipedia.org/wiki/Vector_space_model)
@@ -11,6 +11,8 @@ A node.js module that creates a term vector from tokenized text. Use `term-vecto
 ```javascript
 
 const tv = require('term-vector') 
+// alternatively if you are all fancy and new-fangled:
+// import tv from 'term-vector'
 const tokens = 'this is really really really cool'.split(' ')
 
 // just make a simple term vector
@@ -43,6 +45,3 @@ tv(tokens, { ngramLengths: [ 1, 2 ] })
 [npm-url]: https://npmjs.org/package/term-vector
 [npm-version-image]: http://img.shields.io/npm/v/term-vector.svg?style=flat
 [npm-downloads-image]: http://img.shields.io/npm/dm/term-vector.svg?style=flat
-
-[travis-url]: http://travis-ci.org/fergiemcdowall/term-vector
-[travis-image]: http://img.shields.io/travis/fergiemcdowall/term-vector.svg?style=flat
