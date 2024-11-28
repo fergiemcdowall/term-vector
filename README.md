@@ -31,8 +31,8 @@ tv(tokens, { ngramLengths: [ 1, 2 ] })
 //   { term: [ 'is' ], positions: [ 1 ] },
 //   { term: [ 'is', 'really' ], positions: [ 1 ] },
 //   { term: [ 'really' ], positions: [ 2, 3, 4 ] },
-//   { term: [ 'really', 'really' ], positions: [ 2, 3 ] },
 //   { term: [ 'really', 'cool' ], positions: [ 4 ] },
+//   { term: [ 'really', 'really' ], positions: [ 2, 3 ] },
 //   { term: [ 'this' ], positions: [ 0 ] },
 //   { term: [ 'this', 'is' ], positions: [ 0 ] }
 // ]
